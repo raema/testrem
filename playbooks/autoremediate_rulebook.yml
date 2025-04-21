@@ -1,0 +1,14 @@
+---
+- name: Auto-remediation RuleSet
+  hosts: all
+  sources:
+    - ansible.eda.webhook:  # Webhook event source plugin
+        host: 0.0.0.0
+        port: 5000
+  rules:
+    - name: Run AWX Job on Webhook
+      condition: true        # always true (trigger on any event)
+      action:
+        run_job_template:
+          name: Auto-Remediation Demo    # Name of the AWX Job Template to run
+          organization: Default
